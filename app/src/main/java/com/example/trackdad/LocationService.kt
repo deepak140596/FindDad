@@ -36,6 +36,11 @@ class LocationService : LifecycleService(){
         return Service.START_STICKY
     }
 
+    override fun onDestroy() {
+        this.unregisterReceiver(this.mBatInfoReceiver)
+        super.onDestroy()
+    }
+
     private fun getLocation(){
         val handler = Handler()
         val runnable = object : Runnable {
