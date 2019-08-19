@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "185671612162",
+    "firebase_url": "https://find-dad.firebaseio.com",
+    "project_id": "find-dad",
+    "storage_bucket": "find-dad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185671612162:android:101196a7586772bb",
+        "android_client_info": {
+          "package_name": "com.example.trackdad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185671612162-02o768e78n4rg3j2virb13rgbc23r1hu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trackdad",
+            "certificate_hash": "427d59572f5df7d982bbbbdcbad4e58fc146a1c3"
+          }
+        },
+        {
+          "client_id": "185671612162-v2rm36au8627b430ie4nr7gl9podl7m3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyXQXRqv-JN4wweSKfuCyPdXuVj90IYfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185671612162-v2rm36au8627b430ie4nr7gl9podl7m3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
