@@ -18,20 +18,40 @@ class LocationService : LifecycleService(){
     val TAG = "LOCATION_SERVICE"
     var batteryLevel: Int? = 100
 
+    private val mBatInfoReceiver = object : BroadcastReceiver() {
+        override fun onReceive(p0: Context?, intent: Intent?) {
+            val level = intent?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
+            batteryLevel = level
+        }
+    }
+
+
+
     override fun onCreate() {
         super.onCreate()
-
-        this.registerReceiver(this.mBatInfoReceiver,  IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        Log.d(TAG,"OnCreate")
+        this.registerReceiver(this.mBatInfoReceiver,  IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         getLocation()
+    }
+
+    override fun onDestroy() {
+        Log.d(TAG,"onDestroy")
+
+        this.unregisterReceiver(this.mBatInfoReceiver)
+        sendBroadcast(Intent(this,BroadcastRec::class.java))
+        super.onDestroy()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
         super.onBind(intent)
+        Log.d(TAG,"onBind")
         return null
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
+        Log.d(TAG,"onStart")
+        this.registerReceiver(this.mBatInfoReceiver,  IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         return Service.START_STICKY
     }
@@ -69,10 +89,5 @@ class LocationService : LifecycleService(){
         handler.postDelayed(runnable,2000)
     }
 
-    private val mBatInfoReceiver = object : BroadcastReceiver() {
-        override fun onReceive(p0: Context?, intent: Intent?) {
-            val level = intent?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
-            batteryLevel = level
-        }
-    }
+
 }
