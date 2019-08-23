@@ -17,6 +17,8 @@ import com.google.android.gms.location.LocationServices
 class LocationService : LifecycleService(){
 
     val TAG = "LOCATION_SERVICE"
+    val MIN_TIME :Long = 0
+    val MIN_DIST :Float = 0.0f
 
 
     private val mBatInfoReceiver = object : BroadcastReceiver() {
@@ -27,18 +29,19 @@ class LocationService : LifecycleService(){
     }
 
     override fun onCreate() {
-        super.onCreate()
         Log.d(TAG,"OnCreate")
+        super.onCreate()
+
         this.registerReceiver(this.mBatInfoReceiver,  IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         getLocation()
     }
 
     override fun onDestroy() {
-        Log.d(TAG,"onDestroy")
 
         this.unregisterReceiver(this.mBatInfoReceiver)
         sendBroadcast(Intent(this,BroadcastRec::class.java))
         super.onDestroy()
+        Log.d(TAG,"onDestroy")
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -60,10 +63,8 @@ class LocationService : LifecycleService(){
     fun getLocation(){
         val locationManger = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        locationManger.requestLocationUpdates(LocationManager.GPS_PROVIDER,0, 0.0f, mLocationListener )
+        locationManger.requestLocationUpdates(LocationManager.GPS_PROVIDER,MIN_TIME, MIN_DIST, mLocationListener )
 
     }
-
-
 
 }
