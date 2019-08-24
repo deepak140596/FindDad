@@ -3,12 +3,14 @@ package com.example.trackdad
 import com.google.firebase.database.FirebaseDatabase
 
 class FirebaseUtils {
-    val database = FirebaseDatabase.getInstance().reference
+    companion object {
+        val database = FirebaseDatabase.getInstance().reference
 
-    fun writeDataToFirebase(dataModel: DataModel){
+        fun writeDataToFirebase(dataModel: DataModel) {
 
-        database.child("location")
-            .child(dataModel.timestamp.toString())
-            .setValue(dataModel)
+            database.child("location")
+                .child(dataModel.timestamp.toString())
+                .setValue(dataModel)
+        }
     }
 }

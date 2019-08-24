@@ -6,7 +6,7 @@ import android.content.Intent
 
 class BroadcastRec : BroadcastReceiver() {
     override fun onReceive(context: Context?, p1: Intent?) {
-        context?.startService(Intent(context, LocationService::class.java))
+//        context?.startService(Intent(context, LocationService::class.java))
     }
 
 }

@@ -17,7 +17,7 @@ import com.google.android.gms.location.LocationServices
 class LocationService : LifecycleService(){
 
     val TAG = "LOCATION_SERVICE"
-    val MIN_TIME :Long = 0
+    val MIN_TIME :Long = 1000 * 60 * 1
     val MIN_DIST :Float = 0.0f
 
 
@@ -39,8 +39,8 @@ class LocationService : LifecycleService(){
     override fun onDestroy() {
 
         this.unregisterReceiver(this.mBatInfoReceiver)
-        sendBroadcast(Intent(this,BroadcastRec::class.java))
         super.onDestroy()
+        sendBroadcast(Intent(this,BroadcastRec::class.java))
         Log.d(TAG,"onDestroy")
     }
 
