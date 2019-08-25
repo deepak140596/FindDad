@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
                 LOCATION_REQUEST)
 
         } else {
-            startService(Intent(this,LocationService::class.java))
         }
     }
 
@@ -47,8 +46,6 @@ class MainActivity : AppCompatActivity() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-
-                    startService(Intent(this,LocationService::class.java))
                 } else {
                     getPermissions()
                 }
@@ -60,4 +57,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 }
