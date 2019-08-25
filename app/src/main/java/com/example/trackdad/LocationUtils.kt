@@ -1,64 +1,28 @@
 package com.example.trackdad
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.location.Location
+import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.location.*
-import com.google.android.gms.tasks.Task
 
-class LocationUtils{
+var batteryLevel: Int? = 100
 
-    val TAG = "LOCATION_UTILS"
-    private var fusedLocationProviderClient: FusedLocationProviderClient?= null
 
-    // using singleton pattern to get the locationProviderClient
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-        private var INSTANCE : LocationUtils? = null
-        @SuppressLint("StaticFieldLeak")
-        lateinit var context : Context
-
-        fun getInstance(appContext: Context): LocationUtils {
-            context = appContext
-            if(INSTANCE == null){
-                INSTANCE = LocationUtils()
-            }
-
-            return INSTANCE!!
-        }
+val mLocationListener = object : android.location.LocationListener {
+    override fun onLocationChanged(location: Location) {
+        val dataModel = DataModel(location.latitude,location.longitude, batteryLevel)
+        Log.d("LOCATION_UTILS",dataModel.toString())
+        FirebaseUtils.writeDataToFirebase(dataModel)
     }
 
-    init {
-        if (fusedLocationProviderClient == null)
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
-        createLocationRequest()
+    override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
+        Log.d("","")
+     }
+
+    override fun onProviderEnabled(p0: String?) {
+        Log.d("","")
     }
 
-    @SuppressLint("MissingPermission")
-    fun getLocation() : FusedLocationProviderClient? {
-        return fusedLocationProviderClient
+    override fun onProviderDisabled(p0: String?) {
+        Log.d("","")
     }
-
-    private fun createLocationRequest() {
-        val locationRequest = LocationRequest.create()?.apply {
-            interval = 2000
-            fastestInterval = 5000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }
-
-        val builder = LocationSettingsRequest.Builder()
-            .addLocationRequest(locationRequest!!)
-        val client: SettingsClient = LocationServices.getSettingsClient(context)
-        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
-
-        task.addOnSuccessListener {
-            Log.d(TAG,"Location Settings updated")
-        }.addOnFailureListener{
-            Log.d(TAG,"Location settings failed: ${it.message}")
-
-        }
-    }
-
 }

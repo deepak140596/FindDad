@@ -3,7 +3,8 @@
           package="com.example.trackdad">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
             android:allowBackup="true"
@@ -20,6 +21,12 @@
             </intent-filter>
         </activity>
         <service android:name=".LocationService"/>
+        <receiver android:name=".BroadcastRec"/>
+        <receiver android:name=".BootBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

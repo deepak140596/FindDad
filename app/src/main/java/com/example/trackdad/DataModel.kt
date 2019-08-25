@@ -3,11 +3,11 @@ package com.example.trackdad
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DataModel (var timestamp: Long? = 0L,
-                 var latitude : Double? = 0.0,
+class DataModel (var latitude : Double? = 0.0,
                  var longitude: Double? = 0.0,
                  var batteryPercentage: Int? = 0) {
 
+    val timestamp = System.currentTimeMillis()
     var date : String = formatTimestamp(timestamp)
     override fun toString(): String {
         return "Time: $date, Latitude: $latitude, Longitude: $longitude, Battery %: $batteryPercentage "
